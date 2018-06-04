@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Adds a button that will automatically add emoji to your servers for you from DiscordEmoji.com.
 // @author       ExtraConcentratedJuice
-// @license      WTFPL
+// @license      MIT
 // @match        https://discordemoji.com/category/*
 // @match        https://discordemoji.com/search.php
 // @match        https://discordemoji.com/
