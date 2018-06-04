@@ -19,6 +19,7 @@
 
     const TOKEN_KEY = 'emojiadder_token';
     const GUILD_KEY = 'emojiadder_guild';
+    var count = 0;
 
     function addButton()
     {
@@ -28,9 +29,9 @@
             {
                 let name = $(this).parent().parent().find('h4').find('a').text();
                 let url = $(this).closest('.emoji').find('img').attr('data-src');
-                let elemnt = $(this).append('&nbsp; <a class="addButton"><i class="fas fa-plus-circle" style="cursor: pointer; color: #52bd8c;" data-url="' + url+ '" data-name="' + name + '"></i></a>');
+                $(this).append('&nbsp; <a id="addButton' + count + '"><i class="fas fa-plus-circle" style="cursor: pointer; color: #52bd8c;" data-url="' + url+ '" data-name="' + name + '"></i></a>');
 
-                elemnt.click(function()
+                $('#addButton' + count).click(function()
                 {
                     $.growl.warning({ message: 'Preparing to add :' + name + ': to your server...' });
                     getBase64FromImage(url, function(data)
@@ -79,6 +80,8 @@
                         ));
                     });
                 });
+
+                count++;
             }
         });
     }
