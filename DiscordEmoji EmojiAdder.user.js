@@ -52,11 +52,12 @@
                             if (xhr.readyState == XMLHttpRequest.DONE)
                             {
                                 let respCode = xhr.status;
+                                let resp = JSON.parse(xhr.responseText);
 
                                 switch(respCode)
                                 {
                                     case 400:
-                                        $.growl.error({ message: 'The emoji failed to submit to Discord.' });
+                                        $.growl.error({ message: 'The emoji failed to submit to Discord. ' + (resp.message || 'Unspecified error.') });
                                         break;
                                     case 403:
                                         $.growl.error({ message: 'You are not authorized to submit emojis to this guild. Check your token, check your guild ID. Click the cog icon on the bottom right.' });
