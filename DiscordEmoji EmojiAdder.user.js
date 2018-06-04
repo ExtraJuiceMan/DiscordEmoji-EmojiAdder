@@ -34,9 +34,9 @@
                 $('#addButton' + count).click(function()
                 {
                     $.growl.warning({ message: 'Preparing to add :' + name + ': to your server...' });
-                    getBase64FromImage(url, function(data)
+                    getBase64FromImage(url, function(data, size)
                     {
-                        let size = data.length * 0.001;
+                        size = size * 0.0009765625;
                         if (size > 256)
                         {
                             $.growl.error({ message: 'The emoji :' + name + ': is over 256kb. Discord\'s max emoji size is 256kb. Go bother Kohai to fix it.' });
@@ -93,10 +93,11 @@
         let xhr = new XMLHttpRequest();
         xhr.onload = function()
         {
-            var reader = new FileReader();
+            let reader = new FileReader();
+            let size = xhr.getResponseHeader('content-length');
             reader.onloadend = function()
             {
-                callback(reader.result);
+                callback(reader.result, size);
             }
             reader.readAsDataURL(xhr.response);
         };
