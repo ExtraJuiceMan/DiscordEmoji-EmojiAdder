@@ -1,10 +1,12 @@
 // ==UserScript==
-// @name         DiscordEmoji-EmojiAdder
+// @name         DiscordEmoji EmojiAdder
 // @namespace    https://cirno.pw
 // @version      0.1
 // @description  Adds a button that will automatically add emoji to your servers for you from DiscordEmoji.com.
 // @author       ExtraConcentratedJuice
+// @license      WTFPL
 // @match        https://discordemoji.com/category/*
+// @match        https://discordemoji.com/search.php
 // @match        https://discordemoji.com/
 // @run-at       document-idle
 // @grant        GM_setValue
