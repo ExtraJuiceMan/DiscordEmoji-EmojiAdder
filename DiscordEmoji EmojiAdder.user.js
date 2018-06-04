@@ -40,6 +40,7 @@
                         if (size > 256)
                         {
                             $.growl.error({ message: 'The emoji :' + name + ': is over 256kb. Discord\'s max emoji size is 256kb. Go bother Kohai to fix it.' });
+                            return;
                         }
                         let xhr = new XMLHttpRequest();
                         xhr.open('POST', 'https://canary.discordapp.com/api/v6/guilds/' + GM_getValue(GUILD_KEY, '') + '/emojis');
