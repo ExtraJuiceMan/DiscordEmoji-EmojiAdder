@@ -27,7 +27,7 @@
         {
             if (!$(this).find('.fa-plus-circle').length)
             {
-                let name = $(this).parent().parent().find('h4').find('a').text();
+                let name = $(this).parent().parent().find('h4').find('a').attr('href').split('/').pop();
                 let url = $(this).closest('.emoji').find('img').attr('data-src');
                 $(this).append('&nbsp; <a id="addButton' + count + '"><i class="fas fa-plus-circle" style="cursor: pointer; color: #52bd8c;" data-url="' + url+ '" data-name="' + name + '"></i></a>');
 
