@@ -12,6 +12,7 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @require      https://discordemoji.com/assets/js/jquery-3.1.1.min.js
+// @require      https://cdn.jsdelivr.net/npm/jquery.growl@1.3.5/javascripts/jquery.growl.min.js
 // @require      https://cdn.jsdelivr.net/npm/jquery.initialize@1.2.0/jquery.initialize.min.js
 // ==/UserScript==
 
