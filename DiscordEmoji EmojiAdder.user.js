@@ -11,6 +11,7 @@
 // @run-at       document-idle
 // @grant        GM_setValue
 // @grant        GM_getValue
+// @require      https://discordemoji.com/assets/js/jquery-3.1.1.min.js
 // @require      https://cdn.jsdelivr.net/npm/jquery.initialize@1.2.0/jquery.initialize.min.js
 // ==/UserScript==
 
@@ -115,12 +116,10 @@
         GM_setValue(GUILD_KEY, guild);
         alert('Set your token to: ' + token + '\nSet your guild ID to: ' + guild);
     }
-
-    $(document).ready(function ()
-    {
+    window.addEventListener('load', function() {
         $('body').append('<button id="emojiAdderConfigure" class="btn" style="position: fixed; bottom: 5px; right: 5px;"><i class="fas fa-cog"></i></button>');
         $('#emojiAdderConfigure').click(configure);
-    });
+            $.initialize('.emoji', addButton);
 
-    $.initialize('.emoji', addButton);
+}, false);
 })();
