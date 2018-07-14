@@ -116,10 +116,9 @@
         GM_setValue(GUILD_KEY, guild);
         alert('Set your token to: ' + token + '\nSet your guild ID to: ' + guild);
     }
-    window.addEventListener('load', function() {
+    $(document).ready( function() {
         $('body').append('<button id="emojiAdderConfigure" class="btn" style="position: fixed; bottom: 5px; right: 5px;"><i class="fas fa-cog"></i></button>');
         $('#emojiAdderConfigure').click(configure);
-            $.initialize('.emoji', addButton);
-
-}, false);
+        $.initialize('.emoji', addButton);
+});
 })();
