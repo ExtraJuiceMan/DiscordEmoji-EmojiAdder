@@ -62,6 +62,9 @@
                                     case 400:
                                         $.growl.error({ message: 'The emoji failed to submit to Discord. ' + (resp.message || 'Unspecified error.') });
                                         break;
+                                    case 401:
+                                        $.growl.error({ message: 'You are not logged in. Click the cog on the bottom right corner to configure this extension.' });
+                                        break;
                                     case 403:
                                         $.growl.error({ message: 'You are not authorized to submit emojis to this guild. Check your token, check your guild ID. Click the cog icon on the bottom right.' });
                                         break;
