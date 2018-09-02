@@ -68,6 +68,9 @@
                                     case 403:
                                         $.growl.error({ message: 'You are not authorized to submit emojis to this guild. Check your token, check your guild ID. Click the cog icon on the bottom right.' });
                                         break;
+									case 404:
+                                        $.growl.error({ message: '404. Is your guild ID a valid guild ID?' });
+                                        break;
                                     case 429:
                                         $.growl.error({ message: 'Discord has ratelimited you from uploading emojis. Try again later.' });
                                         break;
