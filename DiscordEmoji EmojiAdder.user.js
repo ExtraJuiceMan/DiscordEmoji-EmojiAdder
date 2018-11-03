@@ -42,9 +42,7 @@
         {
             if (!$(this).find('.fa-plus-circle').length)
             {
-                let preParsed = $(this).parent().parent().find('h5').find('a').attr('href').split('/').pop().split('_');
-                preParsed.shift();
-                let name = preParsed.join('_');
+                let name = $(this).closest('.emoji-card').find('.card-img-top').find('img').attr('alt');
 
                 let url = $(this).parent().find('.download').attr('href');
                 $(this).append('&nbsp; <a id="addButton' + count + '"><i class="fas fa-plus-circle" style="cursor: pointer; color: #52bd8c;" data-url="' + url+ '" data-name="' + name + '"></i></a>');
