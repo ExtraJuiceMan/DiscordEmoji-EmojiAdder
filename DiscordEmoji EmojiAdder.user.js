@@ -12,7 +12,7 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @require      https://discordemoji.com/assets/js/jquery-3.1.1.min.js
-// @require      https://cdn.jsdelivr.net/npm/jquery.growl@1.3.5/javascripts/jquery.growl.min.js
+// @require      https://discordemoji.com/assets/js/toast.min.js
 // @require      https://cdn.jsdelivr.net/npm/jquery.initialize@1.2.0/jquery.initialize.min.js
 // ==/UserScript==
 
@@ -24,25 +24,41 @@
     const GUILD_KEY = 'emojiadder_guild';
     var count = 0;
 
+    function toast(title, message)
+    {
+        iziToast.show({
+            class: 'dark-toast',
+            theme: 'dark',
+            progressBar: false,
+            title: title,
+            message: message,
+            position: 'bottomCenter'
+        });
+    }
+
     function addButton()
     {
         $('div.meta > div.float-right').each(function(index)
         {
             if (!$(this).find('.fa-plus-circle').length)
             {
-                let name = $(this).parent().parent().find('h4').find('a').attr('href').split('/').pop().trim();
-                let url = $(this).closest('.emoji').find('img').attr('data-src');
+                let preParsed = $(this).parent().parent().find('h5').find('a').attr('href').split('/').pop().split('_');
+                preParsed.shift();
+                let name = preParsed.join('_');
+
+                let url = $(this).parent().find('.download').attr('href');
                 $(this).append('&nbsp; <a id="addButton' + count + '"><i class="fas fa-plus-circle" style="cursor: pointer; color: #52bd8c;" data-url="' + url+ '" data-name="' + name + '"></i></a>');
 
                 $('#addButton' + count).click(function()
                 {
-                    $.growl.warning({ message: 'Preparing to add :' + name + ': to your server...' });
+                    console.log('xd');
+                    toast('Alert', 'Preparing to add :' + name + ': to your server...');
                     getBase64FromImage(url, function(data, size)
                     {
                         size = size * 0.0009765625;
                         if (size > 256)
                         {
-                            $.growl.error({ message: 'The emoji :' + name + ': is over 256kb. Discord\'s max emoji size is 256kb. Go bother Kohai to fix it.' });
+                            toast('Emoji Too Large', 'The emoji :' + name + ': is over 256kb. Discord\'s max emoji size is 256kb. Go bother Kohai (DiscordEmoji developer) to fix it.')
                             return;
                         }
                         let xhr = new XMLHttpRequest();
@@ -60,25 +76,22 @@
                                 switch(respCode)
                                 {
                                     case 400:
-                                        $.growl.error({ message: 'The emoji failed to submit to Discord. ' + (resp.message || 'Unspecified error.') });
+                                        toast('400 Bad Request', 'The emoji failed to submit to Discord. ' + (resp.message || 'Unspecified error.'));
                                         break;
                                     case 401:
-                                        $.growl.error({ message: 'You are not logged in. Click the cog on the bottom right corner to configure this extension.' });
+                                        toast('401 Unauthorized', 'You are not logged in. Click the cog on the bottom right corner to configure this extension.');
                                         break;
                                     case 403:
-                                        $.growl.error({ message: 'You are not authorized to submit emojis to this guild. Check your token, check your guild ID. Click the cog icon on the bottom right.' });
-                                        break;
-									case 404:
-                                        $.growl.error({ message: '404. Is your guild ID a valid guild ID?' });
+                                        toast('403 Forbidden', 'You are not authorized to submit emojis to this guild. Check your token, check your guild ID. Click the cog icon on the bottom right.');
                                         break;
                                     case 429:
-                                        $.growl.error({ message: 'Discord has ratelimited you from uploading emojis. Try again later.' });
+                                        toast('429 Ratelimited', 'Discord has ratelimited you from uploading emojis. Try again later.');
                                         break;
                                     case 201:
-                                        $.growl.notice({ message: 'Successfully added :' + name + ': to your server!' });
+                                        toast('Success', 'Successfully added :' + name + ': to your server!');
                                         break;
                                     default:
-                                        $.growl.error({ message: 'An unexpected status code was received from Discord. Whatever it is, it probably isn\'t good. Try again, I guess.' });
+                                        toast('Unexpected Error', 'An unexpected status code was received from Discord. Whatever it is, it probably isn\'t good. Try again, I guess.');
                                         break;
                                 }
                             }
@@ -126,6 +139,6 @@
     $(document).ready( function() {
         $('body').append('<button id="emojiAdderConfigure" class="btn" style="position: fixed; bottom: 5px; right: 5px;"><i class="fas fa-cog"></i></button>');
         $('#emojiAdderConfigure').click(configure);
-        $.initialize('.emoji', addButton);
+        $.initialize('.emoji-card', addButton);
 });
 })();
